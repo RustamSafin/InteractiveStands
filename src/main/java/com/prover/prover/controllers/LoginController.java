@@ -39,8 +39,6 @@ public class LoginController {
         return "security";
     }
 
-
-
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login(){
         return "security";

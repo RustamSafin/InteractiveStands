@@ -7,7 +7,7 @@
             <div class="title">LOGIN</div>
 
             <div class="input">
-                <label for="name">s</label>
+                <label for="name">Username</label>
                 <input type="text" name="login" id="name">
                 <span class="spin"></span>
             </div>
