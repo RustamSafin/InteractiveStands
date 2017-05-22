@@ -29,6 +29,20 @@ public class StandController {
         this.patternService = patternService;
     }
 
+    @RequestMapping(method = RequestMethod.GET)
+    @ResponseBody
+    public List<Stand> viewAll(@RequestParam(required = false, name = "patterns[]") List<Long> patternIds,
+                               @RequestParam(required = false, defaultValue = "1") Integer page) {
+        List<Stand> stands;
+        if (patternIds != null && !patternIds.isEmpty()) {
+            stands = standService.findByPatterns(patternIds, page - 1);
+        } else {
+            stands = standService.findAll(page - 1);
+        }
+
+        return stands;
+    }
+
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public String createStand(@RequestParam String text,
                               @RequestParam String title,
