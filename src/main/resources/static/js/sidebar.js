@@ -8,14 +8,20 @@ angular
             })
             .when("/", {
                 templateUrl : "/content",
-                controller: 'AppCtrl'
+                controller: 'AppCtrl',
+                resolve: {
+                    stands: function (StandsService) {
+                        return StandsService.getStands();
+                    }
+                }
             })
             .otherwise({
                 redirectTo:'/'
             });
         // $locationProvider.html5Mode(true);
     })
-    .controller('AppCtrl', function ($scope, $timeout, $mdSidenav, $log,$http) {
+    .controller('AppCtrl', function ($scope, $timeout, $mdSidenav, $log,stands) {
+        this.stands=stands;
         angular.element(document).ready(function () {
             CKEDITOR.replace('editor1');
             CKEDITOR.config.codeSnippet_theme = 'idea';
@@ -26,11 +32,6 @@ angular
             return $mdSidenav('right').isOpen();
         };
 
-        $scope.test=null;
-        $http.get('/stand/test')
-            .success(function (data) {
-                $scope.test=data;
-            });
         /**
          * Supplies a function that will continue to operate until the
          * time is up.
@@ -75,6 +76,7 @@ angular
             };
         }
     })
+    .factory('StandsService',StandsService)
     .controller('LeftCtrl', function ($scope, $timeout, $mdSidenav, $log) {
         $scope.close = function () {
             // Component lookup should always be available since we are not using `ng-if`
@@ -94,4 +96,13 @@ angular
                 });
         };
     });
-
+function StandsService($http) {
+    function getStands() {
+        return $http.get('/stands').then(function (response) {
+            return response.data();
+        });
+    }
+    return {
+        getStands : getStands
+    };
+}
