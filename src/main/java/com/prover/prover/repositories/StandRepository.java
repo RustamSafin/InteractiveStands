@@ -14,4 +14,5 @@ import java.util.List;
 @Repository
 public interface StandRepository extends JpaRepository<Stand,Long> {
     Page<Stand> findAllByPatternsIdIn(List<Long> patternIds, Pageable pageable);
+    Integer countAllByPatternsIdIn(List<Long> patternIds);
 }

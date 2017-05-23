@@ -1,6 +1,3 @@
-<#include "template.ftl">
-<@mainTemplate title="Login Registration form" />
-<#macro m_body>
 <div class="materialContainer">
     <div class="box">
         <form method="post" action="/login">
@@ -63,4 +60,3 @@
     </div>
 
 </div>
-</#macro>
