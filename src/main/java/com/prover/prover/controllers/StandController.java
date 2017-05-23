@@ -6,22 +6,36 @@ import com.prover.prover.services.PatternService;
 import com.prover.prover.services.StandService;
 import com.prover.prover.utils.helpers.UserHelper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by Admin on 21.05.2017.
  */
 @Controller
-@RequestMapping("/stand")
+@RequestMapping("/")
 public class StandController {
 
     private final StandService standService;
     private final PatternService patternService;
+    @RequestMapping(value = "/test")
+    public String testhuesr(){
+        Stand stand=new Stand();
+        stand.setTitle("govno");
+        stand.setBody("ZHopa");
+        return "toolbar";
+    }
+
+    @RequestMapping()
+    public String testhur(){
+        return "template";
+    }
 
     @Autowired
     public StandController(StandService standService, PatternService patternService) {
@@ -52,6 +66,10 @@ public class StandController {
         Stand stand = standService.save(text, title, patterns);
         model.addAttribute("stand", stand);
         return "";
+    }
+    @RequestMapping(value = "/create", method = RequestMethod.GET)
+    public String createStand() {
+        return "createLesson";
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
