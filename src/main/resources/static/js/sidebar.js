@@ -1,5 +1,5 @@
 angular
-    .module('MyApp', ['ngSanitize', 'ngMaterial', 'ngMessages', 'material.svgAssetsCache', 'ngRoute','cl.paging'])
+    .module('MyApp', ['ngSanitize', 'ngMaterial', 'ngMessages', 'material.svgAssetsCache', 'ngRoute'])
     .config(function ($routeProvider, $locationProvider) {
         $routeProvider
             .when("/create", {
@@ -42,6 +42,12 @@ angular
                             defer.resolve(response.data);
                         });
                         return defer.promise;
+                    },
+                    canManage: function ($q,$http,$route) {
+                        var defer = $q.defer();
+                        $http.get('/canManageStand/'+$route.current.params.id).then(function (response) {
+                            defer.resolve(response.data);
+                        })
                     }
                 }
             })
@@ -55,14 +61,22 @@ angular
                             defer.resolve(response.data);
                         });
                         return defer.promise;
+                    },
+                    canManage: function ($q,$http,$route) {
+                        var defer = $q.defer();
+                        $http.get('/canManageStand/'+$route.current.params.id).then(function (response) {
+                            defer.resolve(response.data);
+                        })
                     }
                 }
+
             })
             .otherwise({
                 redirectTo: '/'
             });
         // $locationProvider.html5Mode(true);
     })
+
     .controller('AppCtrl', function ($scope, $timeout, $mdSidenav, $log,$window) {
         angular.element(document).ready(function () {
             CKEDITOR.replace('editor1');
@@ -75,6 +89,15 @@ angular
         };
         $scope.thisPage = function (pageId) {
             $window.location.href = '/#/stands/'+pageId;
+        };
+        $scope.range = function(min, max){
+            var input = [];
+            for (var i = min; i <= max; i ++) input.push(i);
+            return input;
+        };
+
+        $scope.back = function () {
+            history.back();
         };
         /**
          * Supplies a function that will continue to operate until the

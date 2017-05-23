@@ -1,6 +1,6 @@
 <div class="materialContainer">
     <div class="box">
-        <form method="post" action="/login">
+        <form method="post" action="/">
             <div class="title">LOGIN</div>
 
             <div class="input">

@@ -1,5 +1,5 @@
 <md-content layout="row" layout-wrap flex>
-    <md-content flex="33" ng-repeat="stand in $resolve.stands">
+    <md-content flex="33" ng-repeat="stand in $resolve.stands.standList">
         <md-card>
             <img src="/upload/{{stand.images.filePath}}" style="height: 350px" class="md-card-image" alt="Washed Out">
             <md-card-title>
@@ -27,11 +27,13 @@
             </md-card-actions>
         </md-card>
     </md-content>
-    <md-content layout="row" layout-align="center end">
-        <md-button class="md-fab md-mini md-primary" arial="page" ng-repeat="i in $resolve.stands.size" ng-click="thisPage(i)">
-            {{i+1}}
+    <md-content flex="100" layout="row" layout-align="center end">
+        <md-button ng-repeat="n in range(1,$resolve.stands.size)" class="md-fab md-mini md-primary" ng-click="thisPage(n)">{{n}}
         </md-button>
     </md-content>
-    <md-button class="md-fab md-primary md-fab-bottom-right relative" aria-label="Add" ng-click="">
-        <img src="/images/plus.svg">
-    </md-button>
+</md-content>
+
+
+<md-button class="md-fab md-fab-bottom-right relative" aria-label="Add" href="/#/create">
+    <img src="/images/plus.svg">
+</md-button>

@@ -17,7 +17,7 @@ public @interface UserExist {
 
     boolean value() default true;
 
-    String message() default "user";
+    String message() default "Username already chosen";
 
     Class<?>[] groups() default {};
 

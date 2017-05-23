@@ -34,7 +34,6 @@ public class StandService {
     public Stand getOne(Long id){
         Stand stand= standRepository.getOne(id);
         stand = (Stand) Hibernate.unproxy(stand);
-        stand.setPatterns(stand.getPatterns());
         return stand;
     }
 

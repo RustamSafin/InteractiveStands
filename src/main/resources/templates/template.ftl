@@ -2,6 +2,10 @@
 <!DOCTYPE HTML>
 <html lang="ru">
 <head>
+    <script
+            src="https://code.jquery.com/jquery-3.2.1.min.js"
+            integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+            crossorigin="anonymous"></script>
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
           integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -25,8 +29,8 @@
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.min.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js"></script>
     <script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/t-114/svg-assets-cache.js"></script>
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.10/angular-sanitize.js"></script>
-    <script src="https://rawgit.com/Crawlink/material-angular-paging/master/build/dist.min.js"></script>
+    <script type="text/javascript"
+            src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.10/angular-sanitize.js"></script>
     <script src="https://cdn.gitcdn.link/cdn/angular/bower-material/v1.1.4-master-e1345ae/angular-material.js"></script>
     <script src="/js/sidebar.js"></script>
     <script src="/ckeditor/ckeditor.js"></script>
@@ -37,38 +41,51 @@
 
 
 </head>
-<body ng-app="MyApp" ng-controller="AppCtrl" ng-cloak="">
+<body>
 
 <#--<#include "components/header.ftl" />-->
 
 <#--<a href="/stand/#/stand/test">Туда</a>-->
-<div ng layout="column" class="sidenavdemoBasicUsage">
-    <md-toolbar class="md-theme-indigo" layout="row">
-        <div class="md-toolbar-tools">
-            <div>
-                <md-button ng-click="toggleLeft()" class="md-icon-button md-primary"
-                           aria-label="Settings" hide-gt-md="">
-                    <md-icon md-svg-icon="img/icons/menu.svg"></md-icon>
-                </md-button>
+<#if (!logged??)>
+<div ng-app="MyApp" ng-controller="AppCtrl" ng-cloak="">
+    <div layout="column" class="sidenavdemoBasicUsage">
+        <md-toolbar class="md-theme-indigo" layout="row">
+            <div class="md-toolbar-tools">
+                <div>
+                    <md-button ng-click="toggleLeft()" class="md-icon-button md-primary"
+                               aria-label="Settings" hide-gt-md="">
+                        <md-icon md-svg-icon="img/icons/menu.svg"></md-icon>
+                    </md-button>
 
+                </div>
+                <h2 flex="" md-truncate="">Prover</h2>
             </div>
-            <h2 flex="" md-truncate="">Prover</h2>
-        </div>
-    </md-toolbar>
-    <div layout="row" flex="100">
-        <md-sidenav class="md-sidenav-left" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')"
-                    md-whiteframe="4">
+        </md-toolbar>
+        <div layout="row" flex="100">
+            <md-sidenav class="md-sidenav-left" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')"
+                        md-whiteframe="4">
 
-            <md-toolbar class="md-theme-indigo" ng-controller="LeftCtrl">
-                <h1 class="md-toolbar-tools">${current_user}</h1>
-            </md-toolbar>
-            <md-button class="inset" layout="row" layout-align="start center">
-                Logout
-            </md-button>
-        </md-sidenav>
-        <ng-view flex="100" layout="row"></ng-view>
+                <md-toolbar class="md-theme-indigo" ng-controller="LeftCtrl">
+                    <h1 class="md-toolbar-tools">${current_user}</h1>
+                </md-toolbar>
+                <md-button class="inset" layout="row" layout-align="start center" href="/logout">
+                    Logout
+                </md-button>
+                <md-button class="inset" layout="row" layout-align="start center">
+                    Logout
+                </md-button>
+                <md-button class="inset" layout="row" layout-align="start center">
+                    Logout
+                </md-button>
+            </md-sidenav>
+            <ng-view flex="100" layout="row"></ng-view>
+        </div>
     </div>
 </div>
+<#else>
+    <#include "security.ftl"/>
+</#if>
+
 </body>
 </html>
 <#--</#macro>-->

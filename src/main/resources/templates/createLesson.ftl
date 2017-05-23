@@ -15,6 +15,6 @@
                 <md-button type="submit">Submit</md-button>
             </div>
         </div>
-
+        <md-button ng-click="back()">Back</md-button>
     </form>
 </md-content>

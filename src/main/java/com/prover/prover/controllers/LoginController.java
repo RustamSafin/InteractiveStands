@@ -36,13 +36,10 @@ public class LoginController {
     public String registration(@Valid  @ModelAttribute User user, BindingResult bindingResult) throws NoSuchMethodException, MethodArgumentNotValidException {
         if (bindingResult.hasErrors()) throwNotValid(bindingResult);
         userService.save(user);
-        return "security";
+        return "redirect:/";
     }
 
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String login(){
-        return "security";
-    }
+
 
 
     private void throwNotValid(BindingResult bindingResult) throws NoSuchMethodException, MethodArgumentNotValidException {
