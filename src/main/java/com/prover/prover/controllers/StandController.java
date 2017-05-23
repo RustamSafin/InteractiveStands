@@ -166,4 +166,10 @@ public class StandController {
         return stand;
     }
 
+    @RequestMapping(value = "/canManageStand/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    public boolean canManageStand(@PathVariable Long id){
+        Stand stand = standService.getOne(id);
+        return stand.getUser().equals(UserHelper.currentUser());
+    }
 }
