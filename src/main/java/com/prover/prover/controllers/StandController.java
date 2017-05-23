@@ -1,5 +1,7 @@
 package com.prover.prover.controllers;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.prover.prover.models.Images;
 import com.prover.prover.models.Pattern;
 import com.prover.prover.models.Stand;
@@ -8,6 +10,7 @@ import com.prover.prover.services.PatternService;
 import com.prover.prover.services.StandService;
 import com.prover.prover.utils.helpers.FileHelper;
 import com.prover.prover.utils.helpers.UserHelper;
+import com.prover.prover.wrappers.StandListWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -68,16 +71,21 @@ public class StandController {
 
     @RequestMapping(method = RequestMethod.GET, value = "/stands")
     @ResponseBody
-    public List<Stand> viewAll(@RequestParam(required = false, name = "patterns[]") List<Long> patternIds,
-                               @RequestParam(required = false, defaultValue = "1") Integer page) {
+    public StandListWrapper viewAll(@RequestParam(required = false, name = "patterns[]") List<Long> patternIds,
+                                    @RequestParam(required = false, defaultValue = "1") Integer page) {
         List<Stand> stands;
+
         if (patternIds != null && !patternIds.isEmpty()) {
             stands = standService.findByPatterns(patternIds, page - 1);
         } else {
             stands = standService.findAll(page - 1);
         }
 
-        return stands;
+        StandListWrapper standListWrapper =new StandListWrapper();
+        standListWrapper.setStandList(stands);
+        standListWrapper.setSize(standService.sizeOfStands(patternIds));
+
+        return standListWrapper;
     }
 
     @RequestMapping(value = "/upload", method = RequestMethod.POST)

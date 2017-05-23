@@ -9,6 +9,7 @@ import com.prover.prover.utils.Constants;
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -83,5 +84,13 @@ public class StandService {
            stand.setImages((Images) Hibernate.unproxy(stand.getImages()));
         }
         return stands;
+    }
+
+    public long sizeOfStands(List<Long> patternIds) {
+        if ( patternIds == null || patternIds.isEmpty()){
+            return standRepository.count();
+        }else {
+            return standRepository.countAllByPatternsIdIn(patternIds);
+        }
     }
 }
