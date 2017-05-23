@@ -31,6 +31,9 @@ public class Stand {
     @LazyCollection( LazyCollectionOption.EXTRA )
     private Set<Pattern> patterns;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Images images;
+
     private Timestamp created_at;
 
     private Timestamp updated_at;
@@ -97,5 +100,13 @@ public class Stand {
     public void setTimes(){
         this.created_at = new Timestamp(new Date().getTime());
         this.updated_at = new Timestamp(new Date().getTime());
+    }
+
+    public Images getImages() {
+        return images;
+    }
+
+    public void setImages(Images images) {
+        this.images = images;
     }
 }

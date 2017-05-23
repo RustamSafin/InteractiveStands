@@ -1,14 +1,14 @@
 package com.prover.prover.services;
 
+import com.prover.prover.models.Images;
 import com.prover.prover.models.Pattern;
 import com.prover.prover.models.Stand;
+import com.prover.prover.repositories.ImageRepository;
 import com.prover.prover.repositories.StandRepository;
 import com.prover.prover.utils.Constants;
-import com.prover.prover.utils.helpers.UserHelper;
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -22,10 +22,12 @@ import java.util.List;
 public class StandService {
 
     private final StandRepository standRepository;
+    private final ImageRepository imageRepository;
 
     @Autowired
-    public StandService(StandRepository standRepository) {
+    public StandService(StandRepository standRepository, ImageRepository imageRepository) {
         this.standRepository = standRepository;
+        this.imageRepository = imageRepository;
     }
     @Transactional
     public Stand getOne(Long id){
@@ -45,10 +47,13 @@ public class StandService {
     }
 
     @Transactional
-    public Stand save(String text, String title, List<Pattern> patterns) {
+    public Stand save(String text, String title, List<Pattern> patterns, Long imageId) {
         Stand stand= new Stand();
         stand.setBody(text);
         stand.setTitle(title);
+        Images images = imageRepository.getOne(imageId);
+        images.setId(imageId);
+        stand.setImages(images);
 //        stand.setUser(UserHelper.currentUser());
         stand.getPatterns().addAll(patterns);
 
@@ -67,12 +72,16 @@ public class StandService {
     }
 
     public List<Stand> findAll(Integer page) {
-        return standRepository.findAll(
+        List<Stand> stands = standRepository.findAll(
                 PageRequest.of(
                         page,
                         Constants.STANDS_LIMIT,
                         new Sort(Sort.Direction.ASC,
                                 "patterns.id")
                 )).getContent();
+        for (Stand stand: stands){
+           stand.setImages((Images) Hibernate.unproxy(stand.getImages()));
+        }
+        return stands;
     }
 }
