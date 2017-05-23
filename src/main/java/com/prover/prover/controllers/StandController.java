@@ -80,7 +80,7 @@ public class StandController {
         }
         if (!uploadFile.getContentType().equals(MimeTypeUtils.IMAGE_GIF_VALUE) ||
                 !uploadFile.getContentType().equals(MimeTypeUtils.IMAGE_JPEG_VALUE) ||
-                !uploadFile.getContentType().equals(MimeTypeUtils.IMAGE_PNG_VALUE)){
+                !uploadFile.getContentType().equals(MimeTypeUtils.IMAGE_PNG_VALUE)) {
             return new ResponseEntity<>("invalidType", HttpStatus.BAD_REQUEST);
         }
         Images images = null;
