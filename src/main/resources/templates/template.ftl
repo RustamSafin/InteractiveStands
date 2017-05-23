@@ -68,13 +68,16 @@
                 <md-toolbar class="md-theme-indigo" ng-controller="LeftCtrl">
                     <h1 class="md-toolbar-tools">${current_user}</h1>
                 </md-toolbar>
-                <md-button class="inset" layout="row" layout-align="start center" href="/logout">
-                    Logout
+                <md-button class="inset" layout="row" layout-align="start center">
+                    My Profile
                 </md-button>
                 <md-button class="inset" layout="row" layout-align="start center">
-                    Logout
+                    My Lessons
                 </md-button>
                 <md-button class="inset" layout="row" layout-align="start center">
+                    Settings
+                </md-button>
+                <md-button class="inset" layout="row" layout-align="start center"  href="/logout">
                     Logout
                 </md-button>
             </md-sidenav>
