@@ -37,13 +37,17 @@ public class StandController {
         return "template";
     }
 
+    @RequestMapping("/content")
+    public String testhus(){
+        return "content";
+    }
     @Autowired
     public StandController(StandService standService, PatternService patternService) {
         this.standService = standService;
         this.patternService = patternService;
     }
 
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET, value = "/stands")
     @ResponseBody
     public List<Stand> viewAll(@RequestParam(required = false, name = "patterns[]") List<Long> patternIds,
                                @RequestParam(required = false, defaultValue = "1") Integer page) {

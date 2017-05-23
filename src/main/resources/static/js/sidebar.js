@@ -6,6 +6,10 @@ angular
                 templateUrl : "/create",
                 controller: 'AppCtrl'
             })
+            .when("/", {
+                templateUrl : "/content",
+                controller: 'AppCtrl'
+            })
             .otherwise({
                 redirectTo:'/'
             });
