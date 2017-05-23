@@ -26,7 +26,7 @@
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js"></script>
     <script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/t-114/svg-assets-cache.js"></script>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.10/angular-sanitize.js"></script>
-
+    <script src="https://rawgit.com/Crawlink/material-angular-paging/master/build/dist.min.js"></script>
     <script src="https://cdn.gitcdn.link/cdn/angular/bower-material/v1.1.4-master-e1345ae/angular-material.js"></script>
     <script src="/js/sidebar.js"></script>
     <script src="/ckeditor/ckeditor.js"></script>
@@ -50,6 +50,7 @@
                            aria-label="Settings" hide-gt-md="">
                     <md-icon md-svg-icon="img/icons/menu.svg"></md-icon>
                 </md-button>
+
             </div>
             <h2 flex="" md-truncate="">Prover</h2>
         </div>
@@ -59,7 +60,7 @@
                     md-whiteframe="4">
 
             <md-toolbar class="md-theme-indigo" ng-controller="LeftCtrl">
-                <h1 class="md-toolbar-tools">Login@example</h1>
+                <h1 class="md-toolbar-tools">${current_user}</h1>
             </md-toolbar>
             <md-button class="inset" layout="row" layout-align="start center">
                 Logout

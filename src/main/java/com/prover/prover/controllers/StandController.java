@@ -11,6 +11,8 @@ import com.prover.prover.utils.helpers.UserHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.MimeType;
@@ -41,13 +43,20 @@ public class StandController {
     }
 
     @RequestMapping()
-    public String testhur() {
+    public String testhur( Model model) {
+        model.addAttribute("current_user", SecurityContextHolder.getContext().getAuthentication().getName());
         return "template";
     }
 
     @RequestMapping("/content")
     public String testhus() {
         return "content";
+    }
+
+
+    @RequestMapping("/stand")
+    public String testhuk() {
+        return "stand";
     }
 
     @Autowired
@@ -113,11 +122,10 @@ public class StandController {
         return "createLesson";
     }
 
+    @ResponseBody
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public String viewStand(@PathVariable Long id, Model model) {
-        model.addAttribute("stand", standService.getOne(id));
-
-        return "";
+    public Stand viewStand(@PathVariable Long id, Model model) {
+        return standService.getOne(id);
     }
 
     @RequestMapping(value = "/{id}/delete", method = RequestMethod.POST)
