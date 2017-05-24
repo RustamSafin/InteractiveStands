@@ -121,7 +121,7 @@ public class StandController {
         List<Pattern> patterns = patternService.getByIds(pattenIds);
         Stand stand = standService.save(text, title, patterns);
         model.addAttribute("stand", stand);
-        return "";
+        return "redirect:/";
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.GET)
@@ -135,13 +135,13 @@ public class StandController {
         return standService.getOne(id);
     }
 
-    @RequestMapping(value = "/{id}/delete", method = RequestMethod.POST)
+    @RequestMapping(value = "/{id}/delete", method = RequestMethod.GET)
     public String deleteStand(@PathVariable Long id, Model model) {
         Stand stand = standService.getOne(id);
         if (stand != null && UserHelper.currentUser().equals(stand.getUser())) {
             standService.delete(stand);
         }
-        return "";
+        return "redirect:/";
     }
 
     @RequestMapping(value = "/{id}/update", method = RequestMethod.POST)
@@ -159,7 +159,7 @@ public class StandController {
             stand.getPatterns().addAll(patterns);
             standService.update(stand);
         }
-        return "";
+        return "redirect:/";
     }
 
     @RequestMapping(value = "/{id}/update", method = RequestMethod.GET)

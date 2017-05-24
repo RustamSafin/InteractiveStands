@@ -9,17 +9,17 @@
             </md-card-title>
             <md-card-content>
             </md-card-content>
-            <md-chips ng-repeat="pattern in stand.patterns">
-                <md-chip>
-                    {{pattern.name}}
-                </md-chip>
+            <md-chips ng-model="stand.patterns" readonly="true">
+                <md-chip-template>
+                    {{$chip.name}}
+                </md-chip-template>
             </md-chips>
             <md-card-actions layout="row" layout-align="end center">
                 <md-button class="md-icon-button" aria-label="Favorite">
-                    <md-icon md-svg-icon="img/icons/favorite.svg"></md-icon>
+                    <md-icon md-svg-icon="/images/thumb_up.svg"></md-icon>
                 </md-button>
-                <md-button class="md-icon-button" aria-label="Settings">
-                    <md-icon md-svg-icon="img/icons/menu.svg"></md-icon>
+                <md-button class="md-icon-button" aria-label="Settings" href="/#/stand/{{stand.id}}">
+                    <md-icon md-svg-icon="/images/launch.svg"></md-icon>
                 </md-button>
                 <md-button class="md-icon-button" aria-label="Share">
                     <md-icon md-svg-icon="img/icons/share-arrow.svg"></md-icon>
@@ -28,7 +28,8 @@
         </md-card>
     </md-content>
     <md-content flex="100" layout="row" layout-align="center end">
-        <md-button ng-repeat="n in range(1,$resolve.stands.size)" class="md-fab md-mini md-primary" ng-click="thisPage(n)">{{n}}
+        <md-button ng-repeat="n in range(1,$resolve.stands.size)" class="md-fab md-mini md-primary"
+                   ng-click="thisPage(n)">{{n}}
         </md-button>
     </md-content>
 </md-content>

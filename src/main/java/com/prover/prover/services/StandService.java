@@ -6,6 +6,7 @@ import com.prover.prover.models.Stand;
 import com.prover.prover.repositories.ImageRepository;
 import com.prover.prover.repositories.StandRepository;
 import com.prover.prover.utils.Constants;
+import com.prover.prover.utils.helpers.UserHelper;
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -34,6 +35,7 @@ public class StandService {
     public Stand getOne(Long id){
         Stand stand= standRepository.getOne(id);
         stand = (Stand) Hibernate.unproxy(stand);
+        stand.setImages((Images) Hibernate.unproxy(stand.getImages()));
         return stand;
     }
 
@@ -55,7 +57,7 @@ public class StandService {
         Images images = imageRepository.getOne(imageId.get((int) (Math.random()*imageId.size())));
         images = (Images) Hibernate.unproxy(images);
         stand.setImages(images);
-//        stand.setUser(UserHelper.currentUser());
+        stand.setUser(UserHelper.currentUser());
         stand.getPatterns().addAll(patterns);
 
         return standRepository.save(stand);

@@ -48,7 +48,7 @@
 <#--<a href="/stand/#/stand/test">Туда</a>-->
 <#if (!logged??)>
     <div layout="column" class="sidenavdemoBasicUsage" ng-app="MyApp" ng-controller="AppCtrl" ng-cloak="">
-        <md-toolbar class="md-theme-indigo" layout="row">
+        <md-toolbar class="md-theme-indigo" id="toolbar" layout="row">
             <div class="md-toolbar-tools">
                 <div>
                     <md-button ng-click="toggleLeft()" class="md-icon-button md-primary"
@@ -64,8 +64,9 @@
             <md-sidenav class="md-sidenav-left" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')"
                         md-whiteframe="4">
 
-                <md-toolbar class="md-theme-indigo" ng-controller="LeftCtrl">
-                    <h1 class="md-toolbar-tools">${current_user}</h1>
+                <md-toolbar class="md-hue-2" id="ava" ng-controller="LeftCtrl">
+                    <img class="profile" layout-margin=""  src="/images/profile-user.png">
+                    <h1 class="md-toolbar-tools" >${current_user}</h1>
                 </md-toolbar>
                 <md-button class="inset" layout="row" layout-align="start center">
                     My Profile
@@ -83,6 +84,7 @@
             <ng-view flex="100" layout="row"></ng-view>
         </div>
     </div>
+</div>
 <#else>
     <#include "security.ftl"/>
 </#if>

@@ -18,7 +18,7 @@ public class Pattern {
     @Column(columnDefinition = "VARCHAR(100)")
     private String name;
 
-    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "patterns")
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "patterns",cascade = CascadeType.REMOVE)
     @JsonIgnore
     private List<Stand> stands;
 

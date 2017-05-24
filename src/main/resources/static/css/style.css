@@ -3,6 +3,14 @@
 .sidenavdemoBasicUsage {
     height: 100vh;
 }
-textarea {
-
+.profile {
+    width: 30%;
+}
+#ava {
+    background: #004e92 !important;
+    /*background: -webkit-linear-gradient(to right, #000428, #004e92)!important;*/
+    /*background: linear-gradient(to right, #000428, #004e92)!important;*/
+}
+#toolbar {
+    background: #001641 !important;
 }

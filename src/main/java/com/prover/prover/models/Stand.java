@@ -23,7 +23,7 @@ public class Stand {
     @ManyToOne
     private User user;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = {CascadeType.ALL,CascadeType.REMOVE})
     @JoinTable(name = "user_patterns", joinColumns = {
             @JoinColumn(name = "STAND_ID", nullable = false)},
             inverseJoinColumns = {@JoinColumn(name = "PATTERN_ID",

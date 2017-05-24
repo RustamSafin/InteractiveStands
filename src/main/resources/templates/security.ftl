@@ -5,7 +5,7 @@
 
         <md-toolbar>
             <h2 class="md-toolbar-tools"><span>Login</span></h2>
-            <md-button ng-click="hideLogin()" class="md-fab md-fab-bottom-right " aria-label="Add" >
+            <md-button ng-click="hideLogin()" class="md-fab md-fab-bottom-right " aria-label="Add">
                 <img src="/images/plus.svg">
             </md-button>
         </md-toolbar>
@@ -25,7 +25,8 @@
             </div>
         </md-content>
     </form>
-    <form action="/registration" method="post" ng-show="showReg" class="box-one loginBox md-whiteframe-z1" layout="column">
+    <form action="/registration" method="post" ng-show="showReg" class="box-one loginBox md-whiteframe-z1"
+          layout="column">
 
         <md-toolbar>
             <h2 class="md-toolbar-tools"><span>Registration</span></h2>
@@ -40,18 +41,22 @@
             </md-input-container>
             <md-input-container>
                 <label>Password</label>
-                <input type="password" name="password" />
+                <input type="password" name="password"/>
             </md-input-container>
             <md-input-container>
                 <label>Confirm password</label>
-                <input type="password" />
+                <input type="password"/>
             </md-input-container>
             <md-input-container>
                 <label>Project Type</label>
-                <md-select name="role" ng-model="project.type" required>
-                    <md-option value="ROLE_STUDENT">Student</md-option>
-                    <md-option value="ROLE_TEACHER">Teacher</md-option>
-                </md-select>
+                <div>
+                    <md-select ng-model="patterns" name="role">
+                        <md-optgroup label="Patterns">
+                            <md-option  value="ROLE_STUDENT" >Student</md-option>
+                            <md-option  value="ROLE_TEACHER" >Teacher</md-option>
+                        </md-optgroup>
+                    </md-select>
+                </div>
             </md-input-container>
             <div layout="row" layout-align="center center" style="padding-top:20px">
                 <md-button type="submit" class="md-raised md-primary">Registration</md-button>

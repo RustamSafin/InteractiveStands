@@ -4,7 +4,14 @@ angular
         $routeProvider
             .when("/create", {
                 templateUrl: "/create",
-                controller: 'AppCtrl'
+                controller: 'AppCtrl',
+                resolve: function ($q,$http,$route) {
+                    var defer = $q.defer();
+                    $http.get('/patterns').then(function (response) {
+                        defer.resolve(response.data);
+                    });
+                    return defer.promise;
+                }
             })
             .when("/stands/:page", {
                 templateUrl: "/content",
@@ -47,7 +54,8 @@ angular
                         var defer = $q.defer();
                         $http.get('/canManageStand/'+$route.current.params.id).then(function (response) {
                             defer.resolve(response.data);
-                        })
+                        });
+                        return defer.promise;
                     }
                 }
             })
@@ -66,7 +74,8 @@ angular
                         var defer = $q.defer();
                         $http.get('/canManageStand/'+$route.current.params.id).then(function (response) {
                             defer.resolve(response.data);
-                        })
+                        });
+                        return defer.promise;
                     }
                 }
 
@@ -77,9 +86,9 @@ angular
         // $locationProvider.html5Mode(true);
     })
 
-    .controller('AppCtrl', function ($scope, $timeout, $mdSidenav, $log,$window) {
+    .controller('AppCtrl', function ($scope, $timeout, $mdSidenav, $log,$window,$http) {
         angular.element(document).ready(function () {
-            CKEDITOR.replace('editor1');
+            CKEDITOR.replace('text');
             CKEDITOR.config.codeSnippet_theme = 'idea';
         });
         $scope.toggleLeft = buildDelayedToggler('left');
@@ -94,6 +103,11 @@ angular
             var input = [];
             for (var i = min; i <= max; i ++) input.push(i);
             return input;
+        };
+        $scope.delete = function (standId) {
+            $http.get('/'+standId+'/delete').then(function () {
+                $window.location.href = '/#/';
+            })
         };
 
         $scope.back = function () {
@@ -160,21 +174,20 @@ angular
                     });
             };
         }
-        $scope.currentPage = 0;
-
-        $scope.paging = {
-            total: 10,
-            current: 1,
-            onPageChanged: loadPages
-        };
-
-        function loadPages() {
-            console.log('Current page is : ' + $scope.paging.current);
-
-            $window.location.href = '/#/stands/'+$scope.paging.current;
-
-            $scope.currentPage = $scope.paging.current;
-        }
+        // $scope.currentPage = 0;
+        //
+        // $scope.paging = {
+        //     total: 10,
+        //     current: 1,
+        //     onPageChanged: loadPages
+        // };
+        //
+        // function loadPages() {
+        //
+        //     $window.location.href = '/#/stands/'+$scope.paging.current;
+        //
+        //     $scope.currentPage = $scope.paging.current;
+        // }
     })
     .controller('LeftCtrl', function ($scope, $timeout, $mdSidenav, $log) {
         $scope.close = function () {
