@@ -1,5 +1,5 @@
 angular
-    .module('MyApp', ['ngSanitize', 'ngMaterial', 'ngMessages', 'material.svgAssetsCache', 'ngRoute'])
+    .module('MyApp', ['ngSanitize', 'ngMaterial', 'ngMessages', 'material.svgAssetsCache', 'ngRoute', 'ngAnimate'])
     .config(function ($routeProvider, $locationProvider) {
         $routeProvider
             .when("/create", {
@@ -98,6 +98,24 @@ angular
 
         $scope.back = function () {
             history.back();
+        };
+
+        $scope.showReg = false;
+        $scope.showLogin = true;
+
+        $scope.hideLogin = function () {
+            $timeout(function () {
+                $scope.showReg = true;
+            }, 450);
+            $scope.showLogin= false;
+
+        };
+
+        $scope.hideReg = function () {
+            $scope.showReg = false;
+            $timeout(function () {
+                $scope.showLogin= true;
+            }, 450);
         };
         /**
          * Supplies a function that will continue to operate until the

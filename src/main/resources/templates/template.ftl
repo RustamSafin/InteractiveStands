@@ -47,8 +47,7 @@
 
 <#--<a href="/stand/#/stand/test">Туда</a>-->
 <#if (!logged??)>
-<div ng-app="MyApp" ng-controller="AppCtrl" ng-cloak="">
-    <div layout="column" class="sidenavdemoBasicUsage">
+    <div layout="column" class="sidenavdemoBasicUsage" ng-app="MyApp" ng-controller="AppCtrl" ng-cloak="">
         <md-toolbar class="md-theme-indigo" layout="row">
             <div class="md-toolbar-tools">
                 <div>
@@ -77,14 +76,13 @@
                 <md-button class="inset" layout="row" layout-align="start center">
                     Settings
                 </md-button>
-                <md-button class="inset" layout="row" layout-align="start center"  href="/logout">
+                <md-button class="inset" layout="row" layout-align="start center" href="/logout">
                     Logout
                 </md-button>
             </md-sidenav>
             <ng-view flex="100" layout="row"></ng-view>
         </div>
     </div>
-</div>
 <#else>
     <#include "security.ftl"/>
 </#if>

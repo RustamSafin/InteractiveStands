@@ -47,12 +47,13 @@ public class StandService {
     }
 
     @Transactional
-    public Stand save(String text, String title, List<Pattern> patterns, Long imageId) {
+    public Stand save(String text, String title, List<Pattern> patterns) {
         Stand stand= new Stand();
         stand.setBody(text);
         stand.setTitle(title);
-        Images images = imageRepository.getOne(imageId);
-        images.setId(imageId);
+        List<Long> imageId = imageRepository.findAllId();
+        Images images = imageRepository.getOne(imageId.get((int) (Math.random()*imageId.size())));
+        images = (Images) Hibernate.unproxy(images);
         stand.setImages(images);
 //        stand.setUser(UserHelper.currentUser());
         stand.getPatterns().addAll(patterns);

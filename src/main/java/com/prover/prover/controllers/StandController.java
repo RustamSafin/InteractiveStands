@@ -88,39 +88,38 @@ public class StandController {
         return standListWrapper;
     }
 
-    @RequestMapping(value = "/upload", method = RequestMethod.POST)
-    @ResponseBody
-    public ResponseEntity<?> upload(@RequestParam(name = "file") MultipartFile uploadFile) {
-        System.out.println(uploadFile.getContentType());
-        if (uploadFile.isEmpty()) {
-            return new ResponseEntity<>("file is empty!", HttpStatus.BAD_REQUEST);
-        }
-        if (!uploadFile.getContentType().equals(MimeTypeUtils.IMAGE_GIF_VALUE) ||
-                !uploadFile.getContentType().equals(MimeTypeUtils.IMAGE_JPEG_VALUE) ||
-                !uploadFile.getContentType().equals(MimeTypeUtils.IMAGE_PNG_VALUE)) {
-            return new ResponseEntity<>("invalidType", HttpStatus.BAD_REQUEST);
-        }
-        Images images = null;
-        try {
-
-            String fileName = FileHelper.saveUploadedFile(uploadFile);
-            images = imageService.saveImage(fileName);
-
-        } catch (IOException e) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
-
-        return new ResponseEntity<>(images, HttpStatus.ACCEPTED);
-    }
+//    @RequestMapping(value = "/upload", method = RequestMethod.POST)
+//    @ResponseBody
+//    public ResponseEntity<?> upload(@RequestParam(name = "file") MultipartFile uploadFile) {
+//        System.out.println(uploadFile.getContentType());
+//        if (uploadFile.isEmpty()) {
+//            return new ResponseEntity<>("file is empty!", HttpStatus.BAD_REQUEST);
+//        }
+//        if (!uploadFile.getContentType().equals(MimeTypeUtils.IMAGE_GIF_VALUE) ||
+//                !uploadFile.getContentType().equals(MimeTypeUtils.IMAGE_JPEG_VALUE) ||
+//                !uploadFile.getContentType().equals(MimeTypeUtils.IMAGE_PNG_VALUE)) {
+//            return new ResponseEntity<>("invalidType", HttpStatus.BAD_REQUEST);
+//        }
+//        Images images = null;
+//        try {
+//
+//            String fileName = FileHelper.saveUploadedFile(uploadFile);
+//            images = imageService.saveImage(fileName);
+//
+//        } catch (IOException e) {
+//            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+//        }
+//
+//        return new ResponseEntity<>(images, HttpStatus.ACCEPTED);
+//    }
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public String createStand(@RequestParam String text,
                               @RequestParam String title,
                               @RequestParam(name = "patterns[]") List<Long> pattenIds,
-                              @RequestParam Long imageId,
                               Model model) {
         List<Pattern> patterns = patternService.getByIds(pattenIds);
-        Stand stand = standService.save(text, title, patterns, imageId);
+        Stand stand = standService.save(text, title, patterns);
         model.addAttribute("stand", stand);
         return "";
     }
