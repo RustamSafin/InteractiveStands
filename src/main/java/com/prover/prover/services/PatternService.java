@@ -22,4 +22,8 @@ public class PatternService {
     public List<Pattern> getByIds(List<Long> pattenIds) {
         return (List<Pattern>) patternRepository.findAllById(pattenIds);
     }
+
+    public List<Pattern> findAll() {
+        return (List<Pattern>) patternRepository.findAll();
+    }
 }
