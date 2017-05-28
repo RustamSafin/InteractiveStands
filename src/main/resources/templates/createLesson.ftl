@@ -1,7 +1,6 @@
 <md-content flex="100" layout-padding>
     <form action="/create" method="post">
         <div ng-if="$resolve.canManageStand">
-            <h2>Update Lesson</h2>
             <div layout-gt-sm="row">
                 <md-input-container class="md-block" flex="40">
                     <label>Title</label>
@@ -11,9 +10,9 @@
             <div layout="row">
                 <md-input-container>
                     <label>Patterns</label>
-                    <md-select ng-model="$resolve.patterns" name="patterns[]" multiple="">
-                        <md-optgroup label="Patterns">
-                            <md-option ng-repeat="pattern in $resolve.patterns" ng-value="pattern.name">{{pattern.name}}</md-option>
+                    <md-select ng-repeat="pattern in $resolve.patterns" name="patterns[]" multiple="">
+                        <md-optgroup  label="Patterns">
+                            <md-option  ng-value="pattern.id">{{pattern.name}}</md-option>
                         </md-optgroup>
                     </md-select>
                 </md-input-container>
@@ -21,7 +20,7 @@
             <textarea name="text" id="text" layout="row">{{$resolve.stand.body}}</textarea>
         </div>
         <div ng-if="!($resolve.canManageStand)">
-            <h2>Create Lesson</h2>
+            <h2>Create Lesson </h2>
             <div layout-gt-sm="row">
                 <md-input-container class="md-block" flex="40">
                     <label>Title</label>
@@ -31,9 +30,9 @@
             <div layout="row">
                 <md-input-container>
                     <label>Patterns</label>
-                    <md-select ng-model="$resolve.patterns" name="patterns[]" multiple="">
-                        <md-optgroup label="Patterns">
-                            <md-option ng-repeat="pattern in $resolve.patterns" value="pattern.id" ng-value="pattern.name">{{pattern.name}}</md-option>
+                    <md-select ng-model="nam" name="patterns[]" multiple="">
+                        <md-optgroup  ng-repeat="pattern in $resolve.patterns" label="Patterns">
+                            <md-option ng-value="pattern.id">{{pattern.name}}</md-option>
                         </md-optgroup>
                     </md-select>
                 </md-input-container>

@@ -35,7 +35,6 @@ public class StandController {
     private final PatternService patternService;
     private final ImageService imageService;
 
-
     @RequestMapping()
     public String testhur(Model model, Authentication authentication) {
         model.addAttribute("current_user", SecurityContextHolder.getContext().getAuthentication().getName());
@@ -56,6 +55,28 @@ public class StandController {
         return "stand";
     }
 
+
+    @RequestMapping(value = "/secret/patterns", method = RequestMethod.POST)
+    public String secretPatt(String name) {
+        Pattern pattern = new Pattern();
+        pattern.setName(name);
+        patternService.save(pattern);
+        return "patternsForm";
+    }
+    @RequestMapping(value = "/secret/patterns", method = RequestMethod.GET)
+    public String secretPatt() {
+        return "patternsForm";
+    }
+    @RequestMapping(value = "/secret/image", method = RequestMethod.GET)
+    public String uploadForm() {
+        return "uploadForm";
+    }
+
+    @RequestMapping(value = "/secret/image", method = RequestMethod.POST)
+    public String uploadForm(String mops, String type) {
+        imageService.saveImage("/"+mops+type);
+        return "uploadForm";
+    }
     @Autowired
     public StandController(StandService standService, PatternService patternService, ImageService imageService) {
         this.standService = standService;

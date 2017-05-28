@@ -65,7 +65,7 @@
                         md-whiteframe="4">
 
                 <md-toolbar class="md-hue-2" id="ava" ng-controller="LeftCtrl">
-                    <img class="profile" layout-margin=""  src="/images/profile-user.png">
+                    <img class="profile" layout-margin=""  src="/images/1.png">
                     <h1 class="md-toolbar-tools" >${current_user}</h1>
                 </md-toolbar>
                 <md-button class="inset" layout="row" layout-align="start center">

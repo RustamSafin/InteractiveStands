@@ -26,4 +26,8 @@ public class PatternService {
     public List<Pattern> findAll() {
         return (List<Pattern>) patternRepository.findAll();
     }
+
+    public void save(Pattern pattern) {
+        patternRepository.save(pattern);
+    }
 }

@@ -5,5 +5,5 @@ package com.prover.prover.utils;
  */
 public class Constants {
     public static final int STANDS_LIMIT = 1;
-    public static final String UPLOADED_FOLDER = "C:\\IdeaProjects\\prover\\src\\main\\resources\\static\\upload\\";
+    public static final String UPLOADED_FOLDER = "/";
 }

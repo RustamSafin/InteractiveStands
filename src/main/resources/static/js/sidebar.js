@@ -5,12 +5,15 @@ angular
             .when("/create", {
                 templateUrl: "/create",
                 controller: 'AppCtrl',
-                resolve: function ($q,$http,$route) {
-                    var defer = $q.defer();
-                    $http.get('/patterns').then(function (response) {
-                        defer.resolve(response.data);
-                    });
-                    return defer.promise;
+                resolve: {
+                    patterns: function ($q,$http,$route) {
+                        var defer = $q.defer();
+                        $http.get('/patterns').then(function (response) {
+                            console.log(response.data);
+                            defer.resolve(response.data);
+                        });
+                        return defer.promise;
+                    }
                 }
             })
             .when("/stands/:page", {
@@ -86,7 +89,10 @@ angular
         // $locationProvider.html5Mode(true);
     })
 
-    .controller('AppCtrl', function ($scope, $timeout, $mdSidenav, $log,$window,$http) {
+    .controller('AppCtrl', function ($scope, $timeout, $mdSidenav, $log,$window,$http,$sce) {
+        $scope.deliberatelyTrustDangerousSnippet = function(body) {
+            return $sce.trustAsHtml(body);
+        };
         angular.element(document).ready(function () {
             CKEDITOR.replace('text');
             CKEDITOR.config.codeSnippet_theme = 'idea';

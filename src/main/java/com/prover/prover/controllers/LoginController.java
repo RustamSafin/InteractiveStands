@@ -34,7 +34,7 @@ public class LoginController {
 
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
     public String registration(@Valid  @ModelAttribute User user, BindingResult bindingResult) throws NoSuchMethodException, MethodArgumentNotValidException {
-        if (bindingResult.hasErrors()) throwNotValid(bindingResult);
+//        if (bindingResult.hasErrors()) throwNotValid(bindingResult);
         userService.save(user);
         return "redirect:/";
     }

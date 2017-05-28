@@ -28,6 +28,7 @@ public class UserService {
 
     @Transactional
     public User save(User user) {
+        user.setRole("ROLE_TEACHER");
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setEnabled(true);
         user.setLocked(false);

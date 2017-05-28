@@ -5,7 +5,7 @@
             {{$chip.name}}
         </md-chip-template>
     </md-chips>
-    <ng-bind-html ng-bind-html="$resolve.stand.body"></ng-bind-html>
+    <div ng-bind-html="deliberatelyTrustDangerousSnippet($resolve.stand.body)"></div>
     <div class="control-group">
         <div class="controls">
             <md-button ng-click="back()">Back</md-button>

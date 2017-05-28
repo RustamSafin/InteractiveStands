@@ -47,17 +47,6 @@
                 <label>Confirm password</label>
                 <input type="password"/>
             </md-input-container>
-            <md-input-container>
-                <label>Project Type</label>
-                <div>
-                    <md-select ng-model="patterns" name="role">
-                        <md-optgroup label="Patterns">
-                            <md-option  value="ROLE_STUDENT" >Student</md-option>
-                            <md-option  value="ROLE_TEACHER" >Teacher</md-option>
-                        </md-optgroup>
-                    </md-select>
-                </div>
-            </md-input-container>
             <div layout="row" layout-align="center center" style="padding-top:20px">
                 <md-button type="submit" class="md-raised md-primary">Registration</md-button>
                 <div flex="flex"></div>
