@@ -56,7 +56,6 @@ public class CustomUserDetails implements UserDetails {
         return user.isEnabled();
     }
 
-    @Override
     public String getName() {
         return user.getUsername();
     }

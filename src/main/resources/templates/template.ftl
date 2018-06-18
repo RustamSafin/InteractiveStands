@@ -1,4 +1,3 @@
-<#--<#macro mainTemplate title="" styles=[] scripts=[] headerBannerClass="banner" >-->
 <!DOCTYPE HTML>
 <html lang="ru">
 <head>
@@ -17,13 +16,22 @@
             integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
             crossorigin="anonymous"></script>
 
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="/css/materialize.min.css" media="screen,projection"/>
+
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+
     <link href="https://cdn.gitcdn.link/cdn/angular/bower-material/v1.1.4-master-e1345ae/angular-material.css"
           rel="stylesheet">
     <link href="https://material.angularjs.org/1.1.4-master-e1345ae/docs.css" rel="stylesheet">
     <link href="/css/style.css" rel="stylesheet">
     <link href="/ckeditor/plugins/codesnippet/lib/highlight/styles/default.css" rel="stylesheet">
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.js"></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-route.min.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.min.js"></script>
@@ -32,63 +40,121 @@
     <script type="text/javascript"
             src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.10/angular-sanitize.js"></script>
     <script src="https://cdn.gitcdn.link/cdn/angular/bower-material/v1.1.4-master-e1345ae/angular-material.js"></script>
-    <script src="/js/sidebar.js"></script>
     <script src="/ckeditor/ckeditor.js"></script>
     <script src="/ckeditor/plugins/codesnippet/lib/highlight/highlight.pack.js"></script>
 
-    <script src="/js/security.js"></script>
     <link rel="stylesheet" href="/css/security.css" type="text/css">
 
 
 </head>
 <body>
 
-<#--<#include "components/header.ftl" />-->
+<script type="text/javascript" src="/js/materialize.min.js"></script>
 
-<#--<a href="/stand/#/stand/test">Туда</a>-->
-<#if (!logged??)>
-    <div layout="column" class="sidenavdemoBasicUsage" ng-app="MyApp" ng-controller="AppCtrl" ng-cloak="">
-        <md-toolbar class="md-theme-indigo" id="toolbar" layout="row">
-            <div class="md-toolbar-tools">
-                <div>
-                    <md-button ng-click="toggleLeft()" class="md-icon-button md-primary"
-                               aria-label="Settings" hide-gt-md="">
-                        <md-icon md-svg-icon="img/icons/menu.svg"></md-icon>
-                    </md-button>
 
-                </div>
-                <h2 flex="" md-truncate="">Prover</h2>
-            </div>
-        </md-toolbar>
-        <div layout="row" flex="100">
-            <md-sidenav class="md-sidenav-left" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')"
-                        md-whiteframe="4">
 
-                <md-toolbar class="md-hue-2" id="ava" ng-controller="LeftCtrl">
-                    <img class="profile" layout-margin=""  src="/images/1.png">
-                    <h1 class="md-toolbar-tools" >${current_user}</h1>
-                </md-toolbar>
-                <md-button class="inset" layout="row" layout-align="start center">
-                    My Profile
-                </md-button>
-                <md-button class="inset" layout="row" layout-align="start center">
-                    My Lessons
-                </md-button>
-                <md-button class="inset" layout="row" layout-align="start center">
-                    Settings
-                </md-button>
-                <md-button class="inset" layout="row" layout-align="start center" href="/logout">
-                    Logout
-                </md-button>
-            </md-sidenav>
-            <ng-view flex="100" layout="row"></ng-view>
+<ul id="slide-out" class="sidenav sidenav-fixed row">
+    <li class="center-align">
+        <div class="main-text logo col m12 green white-text">
+            <p class="logo-text">ИНТЕРАКТИВНЫЕ СТЕНДЫ</p>
         </div>
-    </div>
-</div>
-<#else>
-    <#include "security.ftl"/>
-</#if>
+    </li>
+    <#if (logged??)>
+        <li class="center-align col m12 login-form">
+            <div class="main-text small-line-height">
+                <h4 class="text-lighten-5">Вход</h4>
+            </div>
+            <form action="/" method="post">
+                <div class="input-field">
+                    <input id="login" name="login" type="email" class="validate">
+                    <label for="login" class="grey-text">Логин</label>
+                </div>
+                <div class="input-field">
+                    <input id="password" name="password" type="password" class="validate">
+                    <label for="password" class="grey-text">Пароль</label>
+                </div>
+                <button class="btn waves-effect waves-light green white-text col m12 " type="submit" name="action">Войти
+                </button>
+            </form>
+        </li>
+        <li class="center-align col m12 reg-link">
+            <a href="/registration" class="blue-text">Зарегистрироваться</a>
+        </li>
+    <#else>
+        <li class="center-align login-form">
+            <h5>${current_user}</h5>
+        </li>
+        <li class="center-align" style="padding-top: 15px">
+            <a href="/">Мои стенды</a>
+        </li>
+        <li class="center-align">
+            <a href="/logout">Выход</a>
+        </li>
+    </#if>
+</ul>
+<main>
+    <div ng-app="MyApp" ng-controller="AppCtrl" ng-cloak="">
+        <nav class="white">
+            <div class="nav-wrapper">
+                <div class="row">
+                    <ul class="left col s12">
+                        <li>
+                            <a data-target="slide-out" class="sidenav-trigger trigger">
+                                <i class="material-icons ico">menu</i>
+                            </a>
+                        </li>
+                        <li>
+                            <div ng-if="$resolve.stand.title">
+                                <p class="brand-logo green-text">{{$resolve.stand.title}}</p>
+                            </div>
+                            <div ng-if="!($resolve.stand.title)">
+                                <p class="brand-logo green-text">Все стенды</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
 
+        <ng-view></ng-view>
+    </div>
+</main>
+<script src="/js/sidebar.js"></script>
 </body>
 </html>
-<#--</#macro>-->
+<#--<div layout="column" flex="100">-->
+<#--<md-sidenav class="md-sidenav-left" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')"-->
+<#--md-whiteframe="4">-->
+
+<#--<md-toolbar class="md-hue-2" id="ava" ng-controller="LeftCtrl">-->
+<#--<img class="profile" layout-margin="" src="/images/1.png">-->
+<#--<h1 class="md-toolbar-tools">${current_user}</h1>-->
+<#--</md-toolbar>-->
+<#--<md-button class="inset" layout="row" layout-align="start center">-->
+<#--My Profile-->
+<#--</md-button>-->
+<#--<md-button class="inset" layout="row" layout-align="start center">-->
+<#--My Lessons-->
+<#--</md-button>-->
+<#--<md-button class="inset" layout="row" layout-align="start center">-->
+<#--Settings-->
+<#--</md-button>-->
+<#--<md-button class="inset" layout="row" layout-align="start center" href="/logout">-->
+<#--Logout-->
+<#--</md-button>-->
+<#--</md-sidenav>-->
+<#--</div>-->
+<#--<div layout="column">-->
+
+<#--<md-toolbar class="md-theme-indigo" id="toolbar" layout="row">-->
+<#--<div class="md-toolbar-tools">-->
+<#--<div>-->
+<#--<md-button ng-click="toggleLeft()" class="md-icon-button md-primary"-->
+<#--aria-label="Settings" hide-gt-md="">-->
+<#--<md-icon md-svg-icon="img/icons/menu.svg"></md-icon>-->
+<#--</md-button>-->
+
+<#--</div>-->
+<#--<h2 md-truncate="">Prover</h2>-->
+<#--</div>-->
+<#--</md-toolbar>-->

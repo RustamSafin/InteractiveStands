@@ -31,6 +31,14 @@ public class Stand {
     @LazyCollection( LazyCollectionOption.EXTRA )
     private Set<Pattern> patterns;
 
+    @ManyToMany(cascade = {CascadeType.ALL,CascadeType.REMOVE})
+    @JoinTable(name = "stands_comments", joinColumns = {
+            @JoinColumn(name = "STAND_ID", nullable = false)},
+            inverseJoinColumns = {@JoinColumn(name = "COMMENT_ID",
+                    nullable = false)})
+    @LazyCollection( LazyCollectionOption.EXTRA )
+    private Set<Comment> comments;
+
     @ManyToOne(fetch = FetchType.LAZY)
     private Images images;
 
@@ -82,10 +90,6 @@ public class Stand {
 
     public Set<Pattern> getPatterns() {
         return patterns == null ? patterns =  new LinkedHashSet<>() : patterns;
-    }
-
-    public void setPatterns(Set<Pattern> patterns) {
-        this.patterns = patterns;
     }
 
     public void setTitle(String title) {

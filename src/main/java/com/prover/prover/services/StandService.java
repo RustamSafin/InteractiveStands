@@ -15,6 +15,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.io.*;
 import java.util.List;
 
 /**
@@ -49,7 +50,7 @@ public class StandService {
     }
 
     @Transactional
-    public Stand save(String text, String title, List<Pattern> patterns) {
+    public Stand save(String text, String title) {
         Stand stand= new Stand();
         stand.setBody(text);
         stand.setTitle(title);
@@ -58,7 +59,6 @@ public class StandService {
         images = (Images) Hibernate.unproxy(images);
         stand.setImages(images);
         stand.setUser(UserHelper.currentUser());
-        stand.getPatterns().addAll(patterns);
 
         return standRepository.save(stand);
     }
@@ -94,5 +94,61 @@ public class StandService {
         }else {
             return standRepository.countAllByPatternsIdIn(patternIds);
         }
+    }
+
+    public String runCode(String code) throws IOException {
+        File javaFile = createFile(code);
+
+        String p = javaFile.getPath();
+        BufferedWriter out = new BufferedWriter(new FileWriter(javaFile));
+        out.write(code);
+        out.close();
+
+        File script = createScript(code,javaFile.getPath());
+
+        Process process = Runtime.getRuntime().exec("./"+script.getPath());
+        BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+        String s ="";
+        StringBuilder result = new StringBuilder();
+        while ((s = reader.readLine()) != null) {
+            result.append(s);
+        }
+
+        return result.toString();
+    }
+    private File createFile(String code) throws FileNotFoundException {
+        String [] parts = code.split("\n");
+        String className = "";
+        for (String part : parts) {
+            if (part.contains("class")) {
+                className = part;
+                break;
+            }
+        }
+        String [] psvm = className.split(" ");
+        for (int i = 0; i < psvm.length ; i++) {
+            if (psvm[i].equals("class")) {
+                className = psvm[i+1];
+                break;
+            }
+        }
+        return new File(className+".java");
+    }
+    private File createScript(String code, String path) throws IOException {
+        File script = new File("codeRun.sh");
+
+
+        Writer streamWriter = new OutputStreamWriter(new FileOutputStream(
+                script));
+        PrintWriter printWriter = new PrintWriter(streamWriter);
+
+        printWriter.println("#!/bin/bash");
+        printWriter.println("su coderunner");
+
+        printWriter.println("javac "+path);
+        printWriter.println("java "+path.substring(0,path.indexOf(".")));
+        printWriter.close();
+
+        return script;
     }
 }

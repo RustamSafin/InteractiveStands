@@ -35,6 +35,7 @@ public class StandController {
     private final PatternService patternService;
     private final ImageService imageService;
 
+
     @RequestMapping()
     public String testhur(Model model, Authentication authentication) {
         model.addAttribute("current_user", SecurityContextHolder.getContext().getAuthentication().getName());
@@ -84,6 +85,12 @@ public class StandController {
         this.imageService = imageService;
     }
 
+    @ResponseBody
+    @RequestMapping(value = "/run", method = RequestMethod.POST)
+    public String run (@RequestParam String code) throws IOException {
+        return standService.runCode(code);
+    }
+
     @RequestMapping(method = RequestMethod.GET, value = "/stands")
     @ResponseBody
     public StandListWrapper viewAll(@RequestParam(required = false, name = "patterns[]") List<Long> patternIds,
@@ -131,10 +138,8 @@ public class StandController {
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public String createStand(@RequestParam String text,
                               @RequestParam String title,
-                              @RequestParam(name = "patterns[]") List<Long> pattenIds,
                               Model model) {
-        List<Pattern> patterns = patternService.getByIds(pattenIds);
-        Stand stand = standService.save(text, title, patterns);
+        Stand stand = standService.save(text, title);
         model.addAttribute("stand", stand);
         return "redirect:/";
     }
@@ -147,6 +152,7 @@ public class StandController {
     @ResponseBody
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public Stand viewStand(@PathVariable Long id, Model model) {
+        model.addAttribute("stand",standService.getOne(id));
         return standService.getOne(id);
     }
 
@@ -198,4 +204,7 @@ public class StandController {
     public List<Pattern> getPatterns(){
         return patternService.findAll();
     }
+
+
 }
+

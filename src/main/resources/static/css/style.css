@@ -14,3 +14,99 @@
 #toolbar {
     background: #001641 !important;
 }
+
+
+header, main, footer {
+    padding-left: 300px;
+}
+.trigger {
+    color: black !important;
+}
+body {
+    background-color: #f3f3f3;
+}
+
+@media only screen and (max-width : 992px) {
+    header, main, footer {
+        padding-left: 0;
+    }
+}
+.logo {
+    height: 64px;
+}
+@font-face {
+    font-family: "Days";
+    src: url('../fonts/Days.ttf') format('truetype');
+}
+.logo-text {
+    font-family: Days;
+}
+.main-text {
+    padding-top: 7px !important;
+    font-size: 1.15rem;
+}
+.small-line-height {
+    line-height: 1.5em;
+}
+.login-form {
+    margin-top: 40% !important;
+}
+.reg-link a {
+    display: inline !important;
+}
+.reg-link a:hover {
+    background-color: transparent !important;
+}
+.stand {
+    margin: 20px;
+}
+.split {
+    height: 100%;
+    width: 50%;
+    position: fixed;
+    z-index: 1;
+    /*top: 0;*/
+    overflow-x: hidden;
+}
+.ico {
+    color: black;
+}
+/* Control the left side */
+.left-split {
+    left: 0;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+/* Control the right side */
+.right-split {
+    right: 10px;
+}
+.comment {
+    margin-left: 20px;
+    margin-right: 20px;
+}
+.result-card {
+    padding: 10px !important;
+}
+.control-group {
+    margin-top: 20px;
+    margin-bottom: 20px !important;
+}
+.result {
+    /*width: 625px;*/
+}
+.com-sub {
+    margin-top: 30px;
+}
+#editor {
+    height: 610px;
+    /*width: 625px;*/
+}
+#edit {
+     height: 610px;
+     /*width: 625px;*/
+ }
+.ace_gutter-cell.ace_breakpoint{
+    background-image: url("../images/debug-btn.png");
+}

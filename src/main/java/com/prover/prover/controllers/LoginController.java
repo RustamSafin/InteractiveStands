@@ -39,7 +39,10 @@ public class LoginController {
         return "redirect:/";
     }
 
-
+    @RequestMapping(value = "/registration", method = RequestMethod.GET)
+    public String registrationIndex() {
+        return "security";
+    }
 
 
     private void throwNotValid(BindingResult bindingResult) throws NoSuchMethodException, MethodArgumentNotValidException {

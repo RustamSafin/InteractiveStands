@@ -12,9 +12,6 @@ import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 
-/**
- * Created by Admin on 20.05.2017.
- */
 @Configuration
 public class AppConfig {
 
